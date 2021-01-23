@@ -8,19 +8,27 @@ import { IBlog } from "../models/blog";
 // ---------------------------------------------- the component
 const Home: FunctionComponent = () => {
   // ---------------------------------------------- local state
-  const [blogs, setBlogs] = useState<IBlog[]>([]);
+  const [blogs, setBlogs] = useState<IBlog[] | null>(null);
+  const [isPending, setIsPending] = useState(true);
 
   // ---------------------------------------------- effects
   useEffect(() => {
-    fetch("http://localhost:8000/blogs")
-      .then((res) => res.json())
-      .then((data) => setBlogs(data as IBlog[]));
+    setTimeout(() => {
+      fetch("http://localhost:8000/blogs")
+        .then((res) => res.json())
+        .then((data) => {
+          setBlogs(data as IBlog[]);
+          setIsPending(false);
+        });
+    }, 1000);
   }, []);
 
   // ---------------------------------------------- content
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" />
+      {isPending && <div>Loading ...</div>}
+
+      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
 };
