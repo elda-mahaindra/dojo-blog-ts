@@ -19,15 +19,14 @@ const Home: FunctionComponent = () => {
     },
   ]);
 
+  // ---------------------------------------------- handlers
+  const handleDelete = (id: number) =>
+    setBlogs((prev) => prev.filter((blog) => blog.id !== id));
+
   // ---------------------------------------------- content
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" />
-
-      <BlogList
-        blogs={blogs.filter((blog) => blog.author === "mario")}
-        title="Mario's Blogs"
-      />
+      <BlogList blogs={blogs} title="All Blogs" onDelete={handleDelete} />
     </div>
   );
 };
