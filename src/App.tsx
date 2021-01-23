@@ -1,28 +1,24 @@
 // ---------------------------------------------- modules import
-import React, { FunctionComponent } from "react";
-import logo from "./logo.svg";
+import { FunctionComponent } from "react";
+
+// ---------------------------------------------- styles import
 import "./App.css";
 
 // ---------------------------------------------- the component
-const App: FunctionComponent = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
+const App: FunctionComponent = () => {
+  const title = `Welcome to the new blog`;
+  const likes = 50;
 
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
+  // ---------------------------------------------- content
+  return (
+    <div className="App">
+      <div className="content">
+        <h1>{title}</h1>
 
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
-);
+        <p>Liked {likes} times</p>
+      </div>
+    </div>
+  );
+};
 
 export default App;
