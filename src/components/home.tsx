@@ -1,5 +1,5 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 import BlogList from "./blogList";
 
@@ -8,25 +8,19 @@ import { IBlog } from "../models/blog";
 // ---------------------------------------------- the component
 const Home: FunctionComponent = () => {
   // ---------------------------------------------- local state
-  const [blogs, setBlogs] = useState<IBlog[]>([
-    { id: 1, author: "mario", body: "lorem ipsum...", title: "My new website" },
-    { id: 2, author: "yoshi", body: "lorem ipsum...", title: "Welcome party!" },
-    {
-      id: 3,
-      author: "mario",
-      body: "lorem ipsum...",
-      title: "Web dev top tips",
-    },
-  ]);
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
 
-  // ---------------------------------------------- handlers
-  const handleDelete = (id: number) =>
-    setBlogs((prev) => prev.filter((blog) => blog.id !== id));
+  // ---------------------------------------------- effects
+  useEffect(() => {
+    fetch("http://localhost:8000/blogs")
+      .then((res) => res.json())
+      .then((data) => setBlogs(data as IBlog[]));
+  }, []);
 
   // ---------------------------------------------- content
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" onDelete={handleDelete} />
+      <BlogList blogs={blogs} title="All Blogs" />
     </div>
   );
 };
