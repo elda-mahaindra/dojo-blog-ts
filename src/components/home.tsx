@@ -1,28 +1,32 @@
 // ---------------------------------------------- modules import
 import { FunctionComponent, useState } from "react";
 
+import { IBlog } from "../models/blog";
+
 // ---------------------------------------------- the component
 const Home: FunctionComponent = () => {
   // ---------------------------------------------- local state
-  const [name, setName] = useState("mario");
-  const [age, setAge] = useState(25);
-
-  // ---------------------------------------------- handlers
-  const handleClick = () => {
-    setName("luigi");
-    setAge(30);
-  };
+  const [blogs, setBlogs] = useState<IBlog[]>([
+    { id: 1, author: "mario", body: "lorem ipsum...", title: "My new website" },
+    { id: 2, author: "yoshi", body: "lorem ipsum...", title: "Welcome party!" },
+    {
+      id: 3,
+      author: "mario",
+      body: "lorem ipsum...",
+      title: "Web dev top tips",
+    },
+  ]);
 
   // ---------------------------------------------- content
   return (
     <div className="home">
-      <h2>Homepage</h2>
+      {blogs.map((blog) => (
+        <div className="blog-preview" key={blog.id}>
+          <h2>{blog.title}</h2>
 
-      <p>
-        {name} is {age} years old
-      </p>
-
-      <button onClick={handleClick}>Click me</button>
+          <p>written by {blog.author}</p>
+        </div>
+      ))}
     </div>
   );
 };
