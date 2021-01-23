@@ -1,15 +1,16 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 
 // ---------------------------------------------- the component
 const Home: FunctionComponent = () => {
-  // ---------------------------------------------- the component
-  const handleClick = () => {
-    console.log("hello, ninjas!");
-  };
+  // ---------------------------------------------- local state
+  const [name, setName] = useState("mario");
+  const [age, setAge] = useState(25);
 
-  const handleClickAgain = (name: string) => {
-    console.log(`hello, ${name}`);
+  // ---------------------------------------------- handlers
+  const handleClick = () => {
+    setName("luigi");
+    setAge(30);
   };
 
   // ---------------------------------------------- content
@@ -17,9 +18,11 @@ const Home: FunctionComponent = () => {
     <div className="home">
       <h2>Homepage</h2>
 
-      <button onClick={handleClick}>Click me</button>
+      <p>
+        {name} is {age} years old
+      </p>
 
-      <button onClick={() => handleClickAgain("mario")}>Click me again</button>
+      <button onClick={handleClick}>Click me</button>
     </div>
   );
 };
