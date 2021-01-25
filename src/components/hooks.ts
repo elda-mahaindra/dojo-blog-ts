@@ -10,8 +10,10 @@ export const useFetch = <T>(url: string) => {
 
   // ---------------------------------------------- effects
   useEffect(() => {
+    const abortController = new AbortController();
+
     setTimeout(() => {
-      fetch(url)
+      fetch(url, { signal: abortController.signal })
         .then((res) => {
           if (!res.ok) {
             throw Error("could not fetch the data from that resource.");
@@ -25,10 +27,16 @@ export const useFetch = <T>(url: string) => {
           setError(null);
         })
         .catch((err) => {
-          setIsPending(false);
-          setError(err.message);
+          if (err.name === "AbortError") {
+            console.log("fetch aborted.");
+          } else {
+            setIsPending(false);
+            setError(err.message);
+          }
         });
     }, 1000);
+
+    return () => abortController.abort();
   }, [url]);
 
   // ---------------------------------------------- return value
