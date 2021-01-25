@@ -6,6 +6,7 @@ import BlogDetails from "./components/blogDetails";
 import Create from "./components/create";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
+import NotFound from "./components/notFound";
 
 import * as ROUTES from "./constants/routes";
 
@@ -22,6 +23,8 @@ const App: FunctionComponent = () => (
           <Route path={ROUTES.CREATE} component={Create} />
 
           <Route path={`${ROUTES.BLOGS}/:blog_id`} component={BlogDetails} />
+
+          <Route path={ROUTES.OTHERS} component={NotFound} />
         </Switch>
       </div>
     </div>
