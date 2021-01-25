@@ -1,6 +1,7 @@
 // ---------------------------------------------- modules import
 import { FormEvent, FunctionComponent, useState } from "react";
 
+import { proxy } from "../constants/proxy";
 import { IBlogData } from "../models/blog";
 
 // ---------------------------------------------- the component
@@ -9,6 +10,7 @@ const Create: FunctionComponent = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
+  const [isPending, setIsPending] = useState(false);
 
   // ---------------------------------------------- handlers
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -16,7 +18,16 @@ const Create: FunctionComponent = () => {
 
     const blogData: IBlogData = { author, body, title };
 
-    console.log(blogData);
+    setIsPending(true);
+
+    fetch(`${proxy}/blogs`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(blogData),
+    }).then(() => {
+      console.log("new blog added.");
+      setIsPending(false);
+    });
   };
 
   // ---------------------------------------------- content
@@ -50,7 +61,9 @@ const Create: FunctionComponent = () => {
           <option value="yoshi">yoshi</option>
         </select>
 
-        <button>Add Blog</button>
+        <button disabled={isPending}>
+          {isPending ? "Adding blog..." : "Add Blog"}
+        </button>
       </form>
     </div>
   );
