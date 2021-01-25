@@ -1,5 +1,8 @@
 // ---------------------------------------------- modules import
 import { FunctionComponent } from "react";
+import { Link } from "react-router-dom";
+
+import * as ROUTES from "../constants/routes";
 
 // ---------------------------------------------- the component
 const Navbar: FunctionComponent = () => (
@@ -7,9 +10,9 @@ const Navbar: FunctionComponent = () => (
     <h1>The Dojo Blog</h1>
 
     <div className="links">
-      <a href="/">Home</a>
+      <Link to={ROUTES.LANDING}>Home</Link>
 
-      <a href="/create">New Blog</a>
+      <Link to={ROUTES.CREATE}>New Blog</Link>
     </div>
   </nav>
 );
