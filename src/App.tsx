@@ -2,6 +2,7 @@
 import { FunctionComponent } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
+import Create from "./components/create";
 import Home from "./components/home";
 import Navbar from "./components/navbar";
 
@@ -15,7 +16,9 @@ const App: FunctionComponent = () => (
 
       <div className="content">
         <Switch>
-          <Route path={ROUTES.LANDING} component={Home} />
+          <Route exact path={ROUTES.LANDING} component={Home} />
+
+          <Route path={ROUTES.CREATE} component={Create} />
         </Switch>
       </div>
     </div>
