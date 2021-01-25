@@ -1,5 +1,7 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent, useState } from "react";
+import { FormEvent, FunctionComponent, useState } from "react";
+
+import { IBlogData } from "../models/blog";
 
 // ---------------------------------------------- the component
 const Create: FunctionComponent = () => {
@@ -8,12 +10,21 @@ const Create: FunctionComponent = () => {
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("mario");
 
+  // ---------------------------------------------- handlers
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const blogData: IBlogData = { author, body, title };
+
+    console.log(blogData);
+  };
+
   // ---------------------------------------------- content
   return (
     <div className="create">
       <h2>Add a new Blog</h2>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Blog title:</label>
 
         <input
