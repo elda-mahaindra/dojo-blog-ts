@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 // ---------------------------------------------- custom hooks
 export const useFetch = <T>(url: string) => {
   // ---------------------------------------------- local state
-  const [data, setData] = useState<T[] | null>(null);
+  const [data, setData] = useState<T | null>(null);
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ export const useFetch = <T>(url: string) => {
           return res.json();
         })
         .then((data) => {
-          setData(data as T[]);
+          setData(data as T);
           setIsPending(false);
           setError(null);
         })
