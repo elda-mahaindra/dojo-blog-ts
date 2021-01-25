@@ -1,11 +1,17 @@
 // ---------------------------------------------- modules import
 import { FormEvent, FunctionComponent, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { proxy } from "../constants/proxy";
 import { IBlogData } from "../models/blog";
 
+import * as ROUTES from "../constants/routes";
+
 // ---------------------------------------------- the component
 const Create: FunctionComponent = () => {
+  // ---------------------------------------------- router state
+  let history = useHistory();
+
   // ---------------------------------------------- local state
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -25,8 +31,8 @@ const Create: FunctionComponent = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blogData),
     }).then(() => {
-      console.log("new blog added.");
       setIsPending(false);
+      history.push(ROUTES.LANDING);
     });
   };
 
